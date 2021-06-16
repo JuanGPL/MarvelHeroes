@@ -1,4 +1,4 @@
-package com.juanleodev.marvelheroes
+package com.juanleodev.marvelheroes.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.juanleodev.marvelheroes.databinding.ActivityMainBinding
-import com.juanleodev.marvelheroes.heroeslist.HeroesListActivity
+import com.juanleodev.marvelheroes.presentation.heroeslist.HeroesListActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,11 +24,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
         animationWatcher()
-
     }
 
     private fun animationWatcher() {
