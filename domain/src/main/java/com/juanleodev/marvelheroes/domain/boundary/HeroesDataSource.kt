@@ -4,8 +4,8 @@ import com.juanleodev.marvelheroes.domain.model.Hero
 
 interface HeroesDataSource {
 
-    fun getHeroes(offset: Int): List<Hero>
+    suspend fun getHeroes(offset: Int): List<Hero>
 
-    fun getHero(heroId: Int): Hero
+    suspend fun getHero(heroId: Int): Hero
 
 }
