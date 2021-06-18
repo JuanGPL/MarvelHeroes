@@ -10,17 +10,17 @@ interface MarvelHeroesApi {
 
     @GET("v1/public/characters")
     suspend fun getHeroesList(
+        @Query("ts") timestamp: String,
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
-        @Query("offset") offset: Int,
-        @Query("ts") timestamp: Long
+        @Query("offset") offset: Int
     ): Response<CharacterDataWrapper>
 
     @GET("v1/public/characters/{characterId}")
     suspend fun getHero(
+        @Query("ts") timestamp: String,
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
-        @Query("ts") timestamp: Long,
         @Path("characterId") heroId: Int
     ): Response<CharacterDataWrapper>
 }

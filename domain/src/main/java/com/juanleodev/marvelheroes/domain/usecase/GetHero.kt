@@ -6,6 +6,6 @@ class GetHero(
     private val heroesDataSource: HeroesDataSource
 ) {
 
-    operator fun invoke(heroId: Int) = heroesDataSource.getHero(heroId)
+    suspend operator fun invoke(heroId: Int) = heroesDataSource.getHero(heroId)
 
 }

@@ -1,40 +1,16 @@
 package com.juanleodev.marvelheroes.domain
 
 
-class Resource<T>(
-    val status: Status,
-    val data: T? = null,
-    val message: String? = null,
-    val apiError: ApiError? = null
-) {
+sealed class Resource<out R> {
 
-    companion object {
-        fun <T> loading(): Resource<T> {
-            return Resource(Status.LOADING)
-        }
+    data class Success<out T>(val data: T) : Resource<T>()
+    data class Error(val exception: Exception) : Resource<Nothing>()
 
-        fun <T> error(): Resource<T> {
-            return Resource(Status.ERROR)
-        }
-
-        fun <T> apiError(apiError: ApiError?): Resource<T> {
-            return Resource(Status.API_ERROR, apiError = apiError)
-        }
-
-        fun <T> success(data: T): Resource<T> {
-            return Resource(Status.SUCCESS, data)
+    override fun toString(): String {
+        return when (this) {
+            is Success<*> -> "Success[data=$data]"
+            is Error -> "Error[exception=$exception]"
         }
     }
 
-    enum class Status {
-        LOADING,
-        ERROR,
-        API_ERROR,
-        SUCCESS
-    }
-
-    class ApiError(
-        private val code: Int,
-        private val status: String
-    )
 }

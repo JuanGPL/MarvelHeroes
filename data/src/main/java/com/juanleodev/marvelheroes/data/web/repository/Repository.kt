@@ -1,40 +1,26 @@
 package com.juanleodev.marvelheroes.data.web.repository
 
-import com.google.gson.Gson
-import com.juanleodev.marvelheroes.domain.Resource
+import com.juanleodev.marvelheroes.data.BuildConfig
 import com.juanleodev.marvelheroes.utils.Security
-import okhttp3.ResponseBody
-import retrofit2.Response
 
-open class Repository(
-    val gson: Gson
-) {
+open class Repository {
 
     protected fun getNowInMillis() = System.currentTimeMillis().toString()
 
     protected fun getHash(nowInMillis: String, publicKey: String, privateKey: String): String {
-        val toEncrypt = nowInMillis + publicKey + privateKey
+        val toEncrypt = nowInMillis + privateKey + publicKey
         return Security.encryptToMD5(toEncrypt)
     }
 
-     protected fun <T> parseResponse(response: Response<T>?): Resource<T> {
-         return if (response != null) {
-             if (response.isSuccessful && response.body() != null) {
-                 Resource.success(response.body()!!)
-             } else if (response.errorBody() != null) {
-                 val errorBody = parseErrorBody(response.errorBody())
-                 Resource.apiError(errorBody)
-             } else {
-                 Resource.error()
-             }
-         } else {
-             Resource.error()
-         }
+    protected fun prepareQuery(): Query {
+        val ts = getNowInMillis()
+        val hash = getHash(ts, BuildConfig.PUBLIC_API_KEY, BuildConfig.PRIVATE_API_KEY)
+
+        return Query(ts, BuildConfig.PUBLIC_API_KEY, hash)
     }
 
-    private fun parseErrorBody(errorBody: ResponseBody?): Resource.ApiError {
-        // TODO
-        return Resource.ApiError(1, "")
-    }
+    data class Query(val ts: String, val publicKey: String, val hash: String)
+
+    protected fun nullResponseBodyException() = Exception("Null Response.body() exception")
 
 }
