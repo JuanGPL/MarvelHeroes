@@ -1,7 +1,6 @@
 package com.juanleodev.marvelheroes.data.web.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class Character(
     @SerializedName("id")
@@ -11,7 +10,7 @@ data class Character(
     @SerializedName("description")
     val description: String? = null,
     @SerializedName("modified")
-    val modified: Date? = null,
+    val modified: String? = null,
     @SerializedName("resourceURI")
     val resourceURI: String? = null,
     @SerializedName("urls")

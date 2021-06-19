@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
                     if (binding.splashMotionContainer.progress == 1.0f) {
                         animationFinihed = true
                         delay(TimeUnit.SECONDS.toMillis(1))
-                        val intent = Intent(this@MainActivity, HeroesListActivity::class.java)
+                        val intent = Intent(
+                            this@MainActivity,
+                            HeroesListActivity::class.java)
                         startActivity(intent)
                         finish()
                     }

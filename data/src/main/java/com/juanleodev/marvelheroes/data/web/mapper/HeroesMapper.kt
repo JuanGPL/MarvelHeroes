@@ -1,9 +1,6 @@
 package com.juanleodev.marvelheroes.data.web.mapper
 
-import com.juanleodev.marvelheroes.data.web.model.CharacterDataWrapper
-import com.juanleodev.marvelheroes.data.web.model.ComicList
-import com.juanleodev.marvelheroes.data.web.model.SeriesList
-import com.juanleodev.marvelheroes.data.web.model.StoryList
+import com.juanleodev.marvelheroes.data.web.model.*
 import com.juanleodev.marvelheroes.domain.model.Comic
 import com.juanleodev.marvelheroes.domain.model.Hero
 import com.juanleodev.marvelheroes.domain.model.Serie
@@ -13,7 +10,7 @@ import java.util.*
 class HeroesMapper {
 
     companion object {
-        fun mapToHeroList(response: CharacterDataWrapper): List<Hero> {
+        fun mapToHeroList(response: CharacterDataWrapper, imageQuality: ImageQuality): List<Hero> {
             val heroList: ArrayList<Hero> = ArrayList()
 
             response.data?.results?.forEach {
@@ -22,6 +19,7 @@ class HeroesMapper {
                         id,
                         name,
                         description,
+                        mapImage(thumbnail, imageQuality),
                         resourceURI,
                         mapComics(comics),
                         mapStories(stories),
@@ -32,6 +30,14 @@ class HeroesMapper {
             }
 
             return heroList
+        }
+
+        fun mapImage(image: Image?, imageQuality: ImageQuality): String? {
+            if (image == null || image.path.isNullOrEmpty() || image.extension.isNullOrEmpty()) {
+                return null
+            }
+
+            return image.path + imageQuality.quality + "." + image.extension
         }
 
         fun mapComics(comicList: ComicList?): List<Comic> {
@@ -82,6 +88,29 @@ class HeroesMapper {
 
             return series
         }
+    }
+
+    enum class ImageQuality(val quality: String) {
+        PORTRAIT_SMALL("/portrait_small"),
+        PORTRAIT_MEDIUM("/portrait_medium"),
+        PORTRAIT_XLARGE("/portrait_xlarge"),
+        PORTRAIT_FANTASTIC("/portrait_fantastic"),
+        PORTRAIT_UNCANNY("/portrait_uncanny"),
+        PORTRAIT_INCREDIBLE("/portrait_incredible"),
+
+        STANDARD_SMALL("/standard_small"),
+        STANDARD_MEDIUM("/standard_medium"),
+        STANDARD_LARGE("/standard_large"),
+        STANDARD_XLARGE("/standard_xlarge"),
+        STANDARD_FANTASTIC("/standard_fantastic"),
+        STANDARD_AMAZING("/standard_amazing"),
+
+        LANDSCAPE_SMALL("/landscape_small"),
+        LANDSCAPE_MEDIUM("/landscape_medium"),
+        LANDSCAPE_LARGE("/landscape_large"),
+        LANDSCAPE_XLARGE("/landscape_xlarge"),
+        LANDSCAPE_AMAZING("/landscape_amazing"),
+        LANDSCAPE_INCREDIBLE("/landscape_incredible"),
     }
 
 }

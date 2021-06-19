@@ -1,15 +1,14 @@
 package com.juanleodev.marvelheroes.data.web.mapper
 
 import com.juanleodev.marvelheroes.data.web.model.*
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class HeroesMapperTest {
 
     @Test
     fun mapToHeroListTestResultIsEmptyList() {
-        val result = HeroesMapper.mapToHeroList(CharacterDataWrapper())
+        val result = HeroesMapper.mapToHeroList(CharacterDataWrapper(), HeroesMapper.ImageQuality.PORTRAIT_MEDIUM)
         assertTrue(result.isEmpty())
     }
 
@@ -17,7 +16,7 @@ class HeroesMapperTest {
     fun mapToHeroListTestMapSuccess() {
         val characterDataWrapper = createCharacterDataWrapperWithNCharacters(2)
 
-        val result = HeroesMapper.mapToHeroList(characterDataWrapper)
+        val result = HeroesMapper.mapToHeroList(characterDataWrapper, HeroesMapper.ImageQuality.PORTRAIT_MEDIUM)
 
         assertTrue(result.isNotEmpty())
         assertEquals(characterDataWrapper.data?.results?.get(0)?.id, result[0].id)
@@ -35,6 +34,34 @@ class HeroesMapperTest {
                 results = items
             )
         )
+    }
+
+    @Test
+    fun mapImageTestNullImage() {
+        val result = HeroesMapper.mapImage(null, HeroesMapper.ImageQuality.PORTRAIT_MEDIUM)
+        assertNull(result)
+    }
+
+    @Test
+    fun mapImageTestNullPath() {
+        val image = Image(null, "jpg")
+        val result = HeroesMapper.mapImage(image, HeroesMapper.ImageQuality.PORTRAIT_MEDIUM)
+        assertNull(result)
+    }
+
+    @Test
+    fun mapImageTestNullExtension() {
+        val image = Image("https://anypath.com/imageId", null)
+        val result = HeroesMapper.mapImage(image, HeroesMapper.ImageQuality.PORTRAIT_MEDIUM)
+        assertNull(result)
+    }
+
+    @Test
+    fun mapImageTestSuccess() {
+        val expected = "https://anypath.com/imageId/portrait_medium.jpg"
+        val image = Image("https://anypath.com/imageId", "jpg")
+        val result = HeroesMapper.mapImage(image, HeroesMapper.ImageQuality.PORTRAIT_MEDIUM)
+        assertEquals(expected, result)
     }
 
     @Test

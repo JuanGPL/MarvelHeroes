@@ -17,11 +17,11 @@ class HeroesRepository(
             val (ts, publicKey, hash) = prepareQuery()
 
             try {
-                val response = api.getHeroesList(ts, publicKey, hash, 0)
+                val response = api.getHeroesList(ts, publicKey, hash, offset)
 
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                        val heroList = HeroesMapper.mapToHeroList(response.body()!!)
+                        val heroList = HeroesMapper.mapToHeroList(response.body()!!, HeroesMapper.ImageQuality.STANDARD_MEDIUM)
                         return@withContext Resource.Success(heroList)
                     } else {
                         return@withContext Resource.Error(nullResponseBodyException())
@@ -43,7 +43,7 @@ class HeroesRepository(
 
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                        val heroList = HeroesMapper.mapToHeroList(response.body()!!)
+                        val heroList = HeroesMapper.mapToHeroList(response.body()!!, HeroesMapper.ImageQuality.LANDSCAPE_XLARGE)
                         return@withContext Resource.Success(heroList[0])
                     } else {
                         return@withContext Resource.Error(nullResponseBodyException())
