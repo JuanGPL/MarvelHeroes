@@ -6,7 +6,9 @@ import com.bumptech.glide.Glide
 import com.juanleodev.marvelheroes.BuildConfig
 import com.juanleodev.marvelheroes.R
 import com.juanleodev.marvelheroes.databinding.ActivityHeroDetailBinding
+import com.juanleodev.marvelheroes.domain.error.ErrorEntity
 import com.juanleodev.marvelheroes.presentation.common.LoadingDialog
+import com.juanleodev.marvelheroes.presentation.common.SnackbarHelper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HeroDetailActivity : AppCompatActivity() {
@@ -48,6 +50,16 @@ class HeroDetailActivity : AppCompatActivity() {
         viewModel.getLoadingObservable().observe(this, {
             LoadingDialog.show(this, it)
         })
+
+        viewModel.getErrorObservable().observe(this, {
+            SnackbarHelper.showSnackbar(
+                this,
+                binding.root,
+                mapError(it),
+                SnackbarHelper.Type.ERROR,
+                R.string.ok
+            )
+        })
     }
 
     private fun checkDescriptionContent(content: String?): String {
@@ -56,5 +68,15 @@ class HeroDetailActivity : AppCompatActivity() {
         }
 
         return content
+    }
+
+    private fun mapError(error: ErrorEntity): String {
+        return when(error) {
+            ErrorEntity.Network -> getString(R.string.error_network)
+            ErrorEntity.NotFound -> getString(R.string.error_not_found)
+            ErrorEntity.ServiceUnavailable -> getString(R.string.error_service_unavailable)
+            ErrorEntity.Unknown -> getString(R.string.error_unknown)
+            else -> error.message ?: getString(R.string.error_unknown)
+        }
     }
 }

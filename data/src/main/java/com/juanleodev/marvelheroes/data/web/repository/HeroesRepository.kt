@@ -5,11 +5,13 @@ import com.juanleodev.marvelheroes.data.web.mapper.HeroesMapper
 import com.juanleodev.marvelheroes.domain.Resource
 import com.juanleodev.marvelheroes.domain.boundary.HeroesDataSource
 import com.juanleodev.marvelheroes.domain.model.Hero
+import com.juanleodev.marvelheroes.utils.ErrorHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class HeroesRepository(
-    private val api: MarvelHeroesApi
+    private val api: MarvelHeroesApi,
+    private val errorHandler: ErrorHandler,
 ) : Repository(), HeroesDataSource {
 
     override suspend fun getHeroes(offset: Int): Resource<List<Hero>> =
@@ -20,17 +22,17 @@ class HeroesRepository(
                 val response = api.getHeroesList(ts, publicKey, hash, offset)
 
                 if (response.isSuccessful) {
-                    if (response.body() != null) {
-                        val heroList = HeroesMapper.mapToHeroList(response.body()!!, HeroesMapper.ImageQuality.STANDARD_MEDIUM, HeroesMapper.ImageQuality.LANDSCAPE_INCREDIBLE)
-                        return@withContext Resource.Success(heroList)
-                    } else {
-                        return@withContext Resource.Error(nullResponseBodyException())
-                    }
+                    val heroList = HeroesMapper.mapToHeroList(
+                        response.body()!!,
+                        HeroesMapper.ImageQuality.STANDARD_MEDIUM,
+                        HeroesMapper.ImageQuality.LANDSCAPE_INCREDIBLE
+                    )
+                    return@withContext Resource.Success(heroList)
                 } else {
-                    return@withContext Resource.Error(Exception(response.message()))
+                    return@withContext Resource.Error(errorHandler(response.code(), response.errorBody()))
                 }
             } catch (e: Exception) {
-                return@withContext Resource.Error(e)
+                return@withContext Resource.Error(errorHandler(e))
             }
         }
 
@@ -42,17 +44,17 @@ class HeroesRepository(
                 val response = api.getHero(heroId, ts, publicKey, hash)
 
                 if (response.isSuccessful) {
-                    if (response.body() != null) {
-                        val heroList = HeroesMapper.mapToHeroList(response.body()!!, HeroesMapper.ImageQuality.LANDSCAPE_INCREDIBLE, HeroesMapper.ImageQuality.PORTRAIT_INCREDIBLE)
-                        return@withContext Resource.Success(heroList[0])
-                    } else {
-                        return@withContext Resource.Error(nullResponseBodyException())
-                    }
+                    val heroList = HeroesMapper.mapToHeroList(
+                        response.body()!!,
+                        HeroesMapper.ImageQuality.LANDSCAPE_INCREDIBLE,
+                        HeroesMapper.ImageQuality.PORTRAIT_INCREDIBLE
+                    )
+                    return@withContext Resource.Success(heroList[0])
                 } else {
-                    return@withContext Resource.Error(Exception(response.message()))
+                    return@withContext Resource.Error(errorHandler(response.code(), response.errorBody()))
                 }
             } catch (e: Exception) {
-                return@withContext Resource.Error(e)
+                return@withContext Resource.Error(errorHandler(e))
             }
         }
 

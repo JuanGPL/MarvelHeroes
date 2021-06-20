@@ -9,4 +9,9 @@
     <string name="no_description">No description yet…</string>
     <string name="no_results">No results</string>
     <string name="ok">OK</string>
+
+    <string name="error_network">Connection error, please try again later</string>
+    <string name="error_not_found">Item not found</string>
+    <string name="error_service_unavailable">Service temporarily unavailable, please try again later</string>
+    <string name="error_unknown">An error occurred, please try again later</string>
 </resources>

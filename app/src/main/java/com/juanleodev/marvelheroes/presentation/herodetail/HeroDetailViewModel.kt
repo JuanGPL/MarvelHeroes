@@ -29,7 +29,7 @@ class HeroDetailViewModel(
                 }
 
                 is Resource.Error -> {
-                    showError(heroResult.exception)
+                    showError(heroResult.error)
                 }
             }
         }

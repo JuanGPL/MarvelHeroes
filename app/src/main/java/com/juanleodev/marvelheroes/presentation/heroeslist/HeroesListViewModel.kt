@@ -31,7 +31,7 @@ class HeroesListViewModel(
                 }
 
                 is Resource.Error -> {
-                    showError(heroesListResult.exception)
+                    showError(heroesListResult.error)
                 }
             }
         }

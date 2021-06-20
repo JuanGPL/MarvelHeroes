@@ -9,6 +9,7 @@ import com.juanleodev.marvelheroes.presentation.herodetail.HeroDetailViewModel
 import com.juanleodev.marvelheroes.presentation.herodetail.mapper.HeroDetailMapper
 import com.juanleodev.marvelheroes.presentation.heroeslist.HeroesListViewModel
 import com.juanleodev.marvelheroes.presentation.heroeslist.mapper.HeroesListMapper
+import com.juanleodev.marvelheroes.utils.ErrorHandler
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -25,6 +26,7 @@ val domainModule = module {
 }
 
 val dataModule = module {
-    single<HeroesDataSource> { HeroesRepository(get()) }
+    single<HeroesDataSource> { HeroesRepository(get(), get()) }
     single { RestClient.getMarvelHeroesApi() }
+    single { ErrorHandler() }
 }
