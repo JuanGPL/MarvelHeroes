@@ -5,8 +5,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.juanleodev.marvelheroes.R
 import com.juanleodev.marvelheroes.databinding.ActivityHeroesListBinding
 import com.juanleodev.marvelheroes.presentation.common.LoadingDialog
+import com.juanleodev.marvelheroes.presentation.common.SnackbarHelper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HeroesListActivity : AppCompatActivity() {
@@ -53,6 +55,16 @@ class HeroesListActivity : AppCompatActivity() {
 
         viewModel.getLoadingObservable().observe(this, {
             LoadingDialog.show(this, it)
+        })
+
+        viewModel.getErrorObservable().observe(this, {
+            SnackbarHelper.showSnackbar(
+                this,
+                binding.root,
+                it,
+                SnackbarHelper.Type.ERROR,
+                R.string.ok
+            )
         })
     }
 

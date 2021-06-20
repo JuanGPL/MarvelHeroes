@@ -1,6 +1,5 @@
 package com.juanleodev.marvelheroes.presentation.heroeslist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -16,27 +15,23 @@ class HeroesListViewModel(
     private val mapper: HeroesListMapper
 ) : BaseViewModel() {
 
-    private val tag = javaClass.simpleName
-
     private val heroesListCached: ArrayList<HeroListItem> = ArrayList()
     private val heroesListLiveData = MutableLiveData<List<HeroListItem>>()
     fun getHeroesListObservable(): LiveData<List<HeroListItem>> = heroesListLiveData
 
     fun getHeroesList() {
-        loadingLiveData.postValue(true)
+        showLoading(true)
         viewModelScope.launch {
             when (val heroesListResult = getHeroes(heroesListCached.size)) {
                 is Resource.Success -> {
                     val heroesList = mapper(heroesListResult.data)
                     heroesListCached.addAll(heroesList)
                     heroesListLiveData.postValue(heroesListCached)
-                    loadingLiveData.postValue(false)
+                    showLoading(false)
                 }
 
                 is Resource.Error -> {
-                    // TODO: show snackbar error
-                    Log.e(tag, "ERROR: $heroesListResult")
-                    loadingLiveData.postValue(false)
+                    showError(heroesListResult.exception)
                 }
             }
         }
