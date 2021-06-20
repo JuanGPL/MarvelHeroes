@@ -6,15 +6,17 @@ import com.juanleodev.marvelheroes.domain.boundary.HeroesDataSource
 import com.juanleodev.marvelheroes.domain.usecase.GetHero
 import com.juanleodev.marvelheroes.domain.usecase.GetHeroes
 import com.juanleodev.marvelheroes.presentation.herodetail.HeroDetailViewModel
-import com.juanleodev.marvelheroes.presentation.heroeslist.HeroesListMapper
+import com.juanleodev.marvelheroes.presentation.herodetail.mapper.HeroDetailMapper
 import com.juanleodev.marvelheroes.presentation.heroeslist.HeroesListViewModel
+import com.juanleodev.marvelheroes.presentation.heroeslist.mapper.HeroesListMapper
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { HeroesListViewModel(get(), get()) }
-    viewModel { HeroDetailViewModel(get()) }
+    viewModel { HeroDetailViewModel(get(), get()) }
     single { HeroesListMapper() }
+    single { HeroDetailMapper() }
 }
 
 val domainModule = module {

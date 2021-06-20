@@ -1,7 +1,7 @@
 package com.juanleodev.marvelheroes.presentation.heroeslist
 
-import android.content.Context
-import android.util.Log
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +10,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.juanleodev.marvelheroes.BuildConfig
 import com.juanleodev.marvelheroes.R
+import com.juanleodev.marvelheroes.presentation.herodetail.HeroDetailActivity
 import com.juanleodev.marvelheroes.presentation.heroeslist.model.HeroListItem
 
 class HeroesListAdapter(
-    private val context: Context
+    private val context: Activity
 ) : RecyclerView.Adapter<HeroesListAdapter.ViewHolder>() {
 
     private var itemList: List<HeroListItem> = ArrayList()
@@ -33,9 +35,10 @@ class HeroesListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setHeroItem(itemList[position])
         holder.itemView.setOnClickListener {
-            val name = itemList[position].name
-            Log.d("YOOO", "Click on $name")
-            // TODO: navigate to hero detail
+            val heroId = itemList[position].id
+            val detailHeroIntent = Intent(context, HeroDetailActivity::class.java)
+            detailHeroIntent.putExtra(BuildConfig.EXTRA_HERO_ID, heroId)
+            context.startActivity(detailHeroIntent)
         }
     }
 

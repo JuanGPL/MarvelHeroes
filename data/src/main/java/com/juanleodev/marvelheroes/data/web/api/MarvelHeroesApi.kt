@@ -5,7 +5,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-
 interface MarvelHeroesApi {
 
     @GET("v1/public/characters")
@@ -18,9 +17,10 @@ interface MarvelHeroesApi {
 
     @GET("v1/public/characters/{characterId}")
     suspend fun getHero(
+        @Path("characterId") heroId: Int,
         @Query("ts") timestamp: String,
         @Query("apikey") apiKey: String,
-        @Query("hash") hash: String,
-        @Path("characterId") heroId: Int
+        @Query("hash") hash: String
     ): Response<CharacterDataWrapper>
 }
+

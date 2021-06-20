@@ -1,4 +1,4 @@
-package com.juanleodev.marvelheroes.presentation.heroeslist
+package com.juanleodev.marvelheroes.presentation.heroeslist.mapper
 
 import com.juanleodev.marvelheroes.domain.model.Hero
 import com.juanleodev.marvelheroes.presentation.heroeslist.model.HeroListItem

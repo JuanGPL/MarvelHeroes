@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.juanleodev.marvelheroes.domain.Resource
 import com.juanleodev.marvelheroes.domain.usecase.GetHeroes
+import com.juanleodev.marvelheroes.presentation.heroeslist.mapper.HeroesListMapper
 import com.juanleodev.marvelheroes.presentation.heroeslist.model.HeroListItem
 import kotlinx.coroutines.launch
 
