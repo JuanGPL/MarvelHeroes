@@ -17,7 +17,7 @@ class HeroesListMapper {
                 val totalSeries = seriesAvailable ?: 0
 
                 if (itemId != -1 && itemName != null) {
-                    val item = HeroListItem(itemId, itemName, image, totalComics, totalStories, totalSeries)
+                    val item = HeroListItem(itemId, itemName, description, image, totalComics, totalStories, totalSeries)
                     heroItemList.add(item)
                 }
             }

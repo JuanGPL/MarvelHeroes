@@ -6,4 +6,5 @@
     <string name="hello_world">Hello World!</string>
     <string name="content_description_hero_avatar">Hero avatar</string>
     <string name="content_description_right_chevron">Right chevron to navigate to hero detail</string>
+    <string name="coming_soon">Coming soon</string>
 </resources>

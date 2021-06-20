@@ -35,14 +35,21 @@ class HeroesListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setHeroItem(itemList[position])
         holder.itemView.setOnClickListener {
-            val heroId = itemList[position].id
-            val detailHeroIntent = Intent(context, HeroDetailActivity::class.java)
-            detailHeroIntent.putExtra(BuildConfig.EXTRA_HERO_ID, heroId)
-            context.startActivity(detailHeroIntent)
+            if (itemHasContent(itemList[position])) {
+                val heroId = itemList[position].id
+                val detailHeroIntent = Intent(context, HeroDetailActivity::class.java)
+                detailHeroIntent.putExtra(BuildConfig.EXTRA_HERO_ID, heroId)
+                context.startActivity(detailHeroIntent)
+            }
         }
     }
 
     override fun getItemCount(): Int = itemList.size
+
+    fun itemHasContent(heroListItem: HeroListItem): Boolean {
+        return !((heroListItem.thumbnail == null || heroListItem.thumbnail.contains("image_not_available")) &&
+                heroListItem.description.isNullOrEmpty())
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val imgHeroThumb = view.findViewById<ImageView>(R.id.imgHeroThumbnail)
@@ -50,16 +57,32 @@ class HeroesListAdapter(
         private val tvTotalComics = view.findViewById<TextView>(R.id.tvTotalComics)
         private val tvTotalSeries = view.findViewById<TextView>(R.id.tvTotalSeries)
         private val tvTotalStories = view.findViewById<TextView>(R.id.tvTotalStories)
+        private val imgChevron = view.findViewById<ImageView>(R.id.imgChevron)
+        private val tvComingSoon = view.findViewById<TextView>(R.id.tvComingSoon)
 
         fun setHeroItem(heroListItem: HeroListItem) {
-            tvHeroName.text = heroListItem.name
-            tvTotalComics.text = heroListItem.totalComics.toString()
-            tvTotalSeries.text = heroListItem.totalSeries.toString()
-            tvTotalStories.text = heroListItem.totalStories.toString()
-            Glide.with(context)
-                .load(heroListItem.thumbnail ?: R.drawable.ic_launcher_background)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgHeroThumb)
+            setComingSoon(heroListItem)
+
+            with(heroListItem) {
+                tvHeroName.text = name
+                tvTotalComics.text = totalComics.toString()
+                tvTotalSeries.text = totalSeries.toString()
+                tvTotalStories.text = totalStories.toString()
+                Glide.with(context)
+                    .load(thumbnail ?: R.drawable.ic_launcher_background)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imgHeroThumb)
+            }
+        }
+
+        private fun setComingSoon(heroListItem: HeroListItem) {
+            if (itemHasContent(heroListItem)) {
+                imgChevron.visibility = View.VISIBLE
+                tvComingSoon.visibility = View.GONE
+            } else {
+                imgChevron.visibility = View.GONE
+                tvComingSoon.visibility = View.VISIBLE
+            }
         }
     }
 }
