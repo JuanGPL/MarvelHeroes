@@ -3,10 +3,10 @@ package com.juanleodev.marvelheroes.presentation.heroeslist
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.juanleodev.marvelheroes.domain.Resource
 import com.juanleodev.marvelheroes.domain.usecase.GetHeroes
+import com.juanleodev.marvelheroes.presentation.common.BaseViewModel
 import com.juanleodev.marvelheroes.presentation.heroeslist.mapper.HeroesListMapper
 import com.juanleodev.marvelheroes.presentation.heroeslist.model.HeroListItem
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class HeroesListViewModel(
     private val getHeroes: GetHeroes,
     private val mapper: HeroesListMapper
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val tag = javaClass.simpleName
 
@@ -23,17 +23,20 @@ class HeroesListViewModel(
     fun getHeroesListObservable(): LiveData<List<HeroListItem>> = heroesListLiveData
 
     fun getHeroesList() {
+        loadingLiveData.postValue(true)
         viewModelScope.launch {
-            when(val heroesListResult = getHeroes(heroesListCached.size)) {
+            when (val heroesListResult = getHeroes(heroesListCached.size)) {
                 is Resource.Success -> {
                     val heroesList = mapper(heroesListResult.data)
                     heroesListCached.addAll(heroesList)
                     heroesListLiveData.postValue(heroesListCached)
+                    loadingLiveData.postValue(false)
                 }
 
                 is Resource.Error -> {
                     // TODO: show snackbar error
                     Log.e(tag, "ERROR: $heroesListResult")
+                    loadingLiveData.postValue(false)
                 }
             }
         }

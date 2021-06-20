@@ -1,10 +1,12 @@
 package com.juanleodev.marvelheroes.presentation.heroeslist
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.juanleodev.marvelheroes.databinding.ActivityHeroesListBinding
+import com.juanleodev.marvelheroes.presentation.common.LoadingDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HeroesListActivity : AppCompatActivity() {
@@ -40,8 +42,17 @@ class HeroesListActivity : AppCompatActivity() {
 
     private fun observeStatus() {
         viewModel.getHeroesListObservable().observe(this, {
+            binding.tvNoResults.visibility = if (it.isEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
             (binding.recyclerHeroes.adapter as HeroesListAdapter).setItemList(it)
             setRecyclerViewScrollListener()
+        })
+
+        viewModel.getLoadingObservable().observe(this, {
+            LoadingDialog.show(this, it)
         })
     }
 

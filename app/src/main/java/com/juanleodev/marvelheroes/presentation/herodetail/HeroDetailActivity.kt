@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.juanleodev.marvelheroes.BuildConfig
 import com.juanleodev.marvelheroes.R
 import com.juanleodev.marvelheroes.databinding.ActivityHeroDetailBinding
+import com.juanleodev.marvelheroes.presentation.common.LoadingDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HeroDetailActivity : AppCompatActivity() {
@@ -42,6 +43,10 @@ class HeroDetailActivity : AppCompatActivity() {
                 tvHeroNameDetail.text = it.name
                 tvHeroDescription.text = checkDescriptionContent(it.description)
             }
+        })
+
+        viewModel.getLoadingObservable().observe(this, {
+            LoadingDialog.show(this, it)
         })
     }
 
