@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="96dp"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp">
 
@@ -38,10 +38,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:maxLines="2"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imgChevron"
             app:layout_constraintStart_toEndOf="@+id/heroThumbnailContainer"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,6 +57,64 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tvHeroName"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeroName"
+            app:srcCompat="@drawable/ic_book" />
+
+        <TextView
+            android:id="@+id/tvTotalComics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="@+id/imgBook"
+            app:layout_constraintStart_toEndOf="@+id/imgBook"
+            app:layout_constraintTop_toTopOf="@+id/imgBook" />
+
+        <ImageView
+            android:id="@+id/imgSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/imgBook"
+            app:layout_constraintTop_toBottomOf="@+id/imgBook"
+            app:srcCompat="@drawable/ic_tv" />
+
+        <TextView
+            android:id="@+id/tvTotalSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="@+id/imgSeries"
+            app:layout_constraintStart_toStartOf="@+id/tvTotalComics"
+            app:layout_constraintTop_toTopOf="@+id/imgSeries" />
+
+        <ImageView
+            android:id="@+id/imgTotalStories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imgSeries"
+            app:layout_constraintStart_toStartOf="@+id/imgSeries"
+            app:layout_constraintTop_toBottomOf="@+id/imgSeries"
+            app:srcCompat="@drawable/ic_stories" />
+
+        <TextView
+            android:id="@+id/tvTotalStories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="@+id/imgTotalStories"
+            app:layout_constraintTop_toTopOf="@+id/imgTotalStories"
+            app:layout_constraintStart_toStartOf="@+id/tvTotalComics" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

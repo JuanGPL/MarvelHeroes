@@ -21,8 +21,11 @@ class HeroesMapper {
                         description,
                         mapImage(thumbnail, imageQuality),
                         resourceURI,
+                        comics?.available,
                         mapComics(comics),
+                        stories?.available,
                         mapStories(stories),
+                        series?.available,
                         mapSeries(series)
                     )
                     heroList.add(hero)

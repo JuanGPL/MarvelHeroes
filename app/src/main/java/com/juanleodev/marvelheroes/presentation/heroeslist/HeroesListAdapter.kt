@@ -45,11 +45,17 @@ class HeroesListAdapter(
     override fun getItemCount(): Int = itemList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvHeroName = view.findViewById<TextView>(R.id.tvHeroName)
         private val imgHeroThumb = view.findViewById<ImageView>(R.id.imgHeroThumbnail)
+        private val tvHeroName = view.findViewById<TextView>(R.id.tvHeroName)
+        private val tvTotalComics = view.findViewById<TextView>(R.id.tvTotalComics)
+        private val tvTotalSeries = view.findViewById<TextView>(R.id.tvTotalSeries)
+        private val tvTotalStories = view.findViewById<TextView>(R.id.tvTotalStories)
 
         fun setHeroItem(heroListItem: HeroListItem) {
             tvHeroName.text = heroListItem.name
+            tvTotalComics.text = heroListItem.totalComics.toString()
+            tvTotalSeries.text = heroListItem.totalSeries.toString()
+            tvTotalStories.text = heroListItem.totalStories.toString()
             Glide.with(context)
                 .load(heroListItem.thumbnail ?: R.drawable.ic_launcher_background)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

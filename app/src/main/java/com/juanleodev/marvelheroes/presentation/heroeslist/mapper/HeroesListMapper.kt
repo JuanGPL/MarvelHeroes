@@ -11,9 +11,15 @@ class HeroesListMapper {
         heroList.forEach {
             with(it) {
                 val itemId = id ?: -1
-                val itemName = name ?: "Personaje sin nombre"
-                val item = HeroListItem(itemId, itemName, image)
-                heroItemList.add(item)
+                val itemName = name
+                val totalComics = comicsAvilable ?: 0
+                val totalStories = storiesAvailable ?: 0
+                val totalSeries = seriesAvailable ?: 0
+
+                if (itemId != -1 && itemName != null) {
+                    val item = HeroListItem(itemId, itemName, image, totalComics, totalStories, totalSeries)
+                    heroItemList.add(item)
+                }
             }
         }
 
