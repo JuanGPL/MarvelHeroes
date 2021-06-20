@@ -10,7 +10,9 @@ import java.util.*
 class HeroesMapper {
 
     companion object {
-        fun mapToHeroList(response: CharacterDataWrapper, imageQuality: ImageQuality): List<Hero> {
+        fun mapToHeroList(response: CharacterDataWrapper,
+                          imageQualityThumbnail: ImageQuality,
+                          imageQualityHiRes: ImageQuality): List<Hero> {
             val heroList: ArrayList<Hero> = ArrayList()
 
             response.data?.results?.forEach {
@@ -19,7 +21,8 @@ class HeroesMapper {
                         id,
                         name,
                         description,
-                        mapImage(thumbnail, imageQuality),
+                        mapImage(thumbnail, imageQualityThumbnail),
+                        mapImage(thumbnail, imageQualityHiRes),
                         resourceURI,
                         comics?.available,
                         mapComics(comics),

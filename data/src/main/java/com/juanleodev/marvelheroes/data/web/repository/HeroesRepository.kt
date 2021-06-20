@@ -21,7 +21,7 @@ class HeroesRepository(
 
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                        val heroList = HeroesMapper.mapToHeroList(response.body()!!, HeroesMapper.ImageQuality.STANDARD_MEDIUM)
+                        val heroList = HeroesMapper.mapToHeroList(response.body()!!, HeroesMapper.ImageQuality.STANDARD_MEDIUM, HeroesMapper.ImageQuality.LANDSCAPE_INCREDIBLE)
                         return@withContext Resource.Success(heroList)
                     } else {
                         return@withContext Resource.Error(nullResponseBodyException())
@@ -43,7 +43,7 @@ class HeroesRepository(
 
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                        val heroList = HeroesMapper.mapToHeroList(response.body()!!, HeroesMapper.ImageQuality.STANDARD_AMAZING)
+                        val heroList = HeroesMapper.mapToHeroList(response.body()!!, HeroesMapper.ImageQuality.LANDSCAPE_INCREDIBLE, HeroesMapper.ImageQuality.PORTRAIT_INCREDIBLE)
                         return@withContext Resource.Success(heroList[0])
                     } else {
                         return@withContext Resource.Error(nullResponseBodyException())

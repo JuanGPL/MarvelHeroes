@@ -52,6 +52,7 @@ class HeroesListAdapter(
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val imgBackground = view.findViewById<ImageView>(R.id.imgCardBackground)
         private val imgHeroThumb = view.findViewById<ImageView>(R.id.imgHeroThumbnail)
         private val tvHeroName = view.findViewById<TextView>(R.id.tvHeroName)
         private val tvTotalComics = view.findViewById<TextView>(R.id.tvTotalComics)
@@ -68,6 +69,10 @@ class HeroesListAdapter(
                 tvTotalComics.text = totalComics.toString()
                 tvTotalSeries.text = totalSeries.toString()
                 tvTotalStories.text = totalStories.toString()
+                Glide.with(context)
+                    .load(imageHiRes ?: R.drawable.ic_launcher_background)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imgBackground)
                 Glide.with(context)
                     .load(thumbnail ?: R.drawable.ic_launcher_background)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

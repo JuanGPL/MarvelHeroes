@@ -5,6 +5,7 @@ data class HeroListItem(
     val name: String?,
     val description: String?,
     val thumbnail: String? = null,
+    val imageHiRes: String? = null,
     val totalComics: Int = 0,
     val totalStories: Int = 0,
     val totalSeries: Int = 0

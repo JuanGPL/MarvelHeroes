@@ -5,6 +5,7 @@ data class Hero(
     val name: String?,
     val description: String?,
     val image: String?,
+    val imageHiRes: String?,
     val resourceUri: String?,
     val comicsAvilable: Int?,
     val comics: List<Comic>?,

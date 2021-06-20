@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="red_marvel">#ED1D24</color>
+    <color name="translucent_white">#BAFFFFFF</color>
 
 </resources>

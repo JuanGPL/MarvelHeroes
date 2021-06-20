@@ -7,6 +7,14 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp">
 
+    <ImageView
+        android:id="@+id/imgCardBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:tint="@color/translucent_white"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/avatars" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
