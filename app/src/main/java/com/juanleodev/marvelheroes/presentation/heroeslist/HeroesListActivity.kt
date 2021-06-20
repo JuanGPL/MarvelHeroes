@@ -2,17 +2,13 @@ package com.juanleodev.marvelheroes.presentation.heroeslist
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.juanleodev.marvelheroes.R
 import com.juanleodev.marvelheroes.databinding.ActivityHeroesListBinding
-import com.juanleodev.marvelheroes.domain.error.ErrorEntity
-import com.juanleodev.marvelheroes.presentation.common.LoadingDialog
-import com.juanleodev.marvelheroes.presentation.common.SnackbarHelper
+import com.juanleodev.marvelheroes.presentation.common.BaseActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HeroesListActivity : AppCompatActivity() {
+class HeroesListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHeroesListBinding
 
@@ -44,6 +40,8 @@ class HeroesListActivity : AppCompatActivity() {
     }
 
     private fun observeStatus() {
+        super.observeStatus(viewModel, binding.root)
+
         viewModel.getHeroesListObservable().observe(this, {
             binding.tvNoResults.visibility = if (it.isEmpty()) {
                 View.VISIBLE
@@ -52,20 +50,6 @@ class HeroesListActivity : AppCompatActivity() {
             }
             (binding.recyclerHeroes.adapter as HeroesListAdapter).setItemList(it)
             setRecyclerViewScrollListener()
-        })
-
-        viewModel.getLoadingObservable().observe(this, {
-            LoadingDialog.show(this, it)
-        })
-
-        viewModel.getErrorObservable().observe(this, {
-            SnackbarHelper.showSnackbar(
-                this,
-                binding.root,
-                mapError(it),
-                SnackbarHelper.Type.ERROR,
-                R.string.ok
-            )
         })
     }
 
@@ -80,16 +64,6 @@ class HeroesListActivity : AppCompatActivity() {
                     }
                 }
             })
-        }
-    }
-
-    private fun mapError(error: ErrorEntity): String {
-        return when(error) {
-            ErrorEntity.Network -> getString(R.string.error_network)
-            ErrorEntity.NotFound -> getString(R.string.error_not_found)
-            ErrorEntity.ServiceUnavailable -> getString(R.string.error_service_unavailable)
-            ErrorEntity.Unknown -> getString(R.string.error_unknown)
-            else -> error.message ?: getString(R.string.error_unknown)
         }
     }
 }
