@@ -22,4 +22,8 @@ open class BaseViewModel : ViewModel() {
         errorLiveData.postValue(error)
     }
 
+    fun showGeneralError() {
+        errorLiveData.postValue(ErrorEntity.Unknown)
+    }
+
 }

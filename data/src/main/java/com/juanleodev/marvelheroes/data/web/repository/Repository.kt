@@ -21,6 +21,4 @@ open class Repository {
 
     data class Query(val ts: String, val publicKey: String, val hash: String)
 
-    protected fun nullResponseBodyException() = Exception("Null Response.body() exception")
-
 }

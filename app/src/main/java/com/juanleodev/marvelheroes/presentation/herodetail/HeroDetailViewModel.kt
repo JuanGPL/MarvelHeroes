@@ -15,8 +15,8 @@ class HeroDetailViewModel(
     private val mapper: HeroDetailMapper
 ) : BaseViewModel() {
 
-    private val heroDetailLiveData = MutableLiveData<HeroDetail>()
-    fun getHeroDetailObservable(): LiveData<HeroDetail> = heroDetailLiveData
+    private val heroDetailLiveData = MutableLiveData<HeroDetail?>()
+    fun getHeroDetailObservable(): LiveData<HeroDetail?> = heroDetailLiveData
 
     fun getHeroDetail(heroId: Int) {
         showLoading(true)

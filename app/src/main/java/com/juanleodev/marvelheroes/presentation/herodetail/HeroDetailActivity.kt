@@ -36,13 +36,17 @@ class HeroDetailActivity : BaseActivity() {
         super.observeStatus(viewModel, binding.root)
 
         viewModel.getHeroDetailObservable().observe(this, {
-            with(binding) {
-                Glide.with(this@HeroDetailActivity)
-                    .load(it.image)
-                    .into(imgHeroDetail)
+            if (it == null) {
+                viewModel.showGeneralError()
+            } else {
+                with(binding) {
+                    Glide.with(this@HeroDetailActivity)
+                        .load(it.image ?: R.drawable.ic_launcher_background)
+                        .into(imgHeroDetail)
 
-                tvHeroNameDetail.text = it.name
-                tvHeroDescription.text = checkDescriptionContent(it.description)
+                    tvHeroNameDetail.text = it.name
+                    tvHeroDescription.text = checkDescriptionContent(it.description)
+                }
             }
         })
     }

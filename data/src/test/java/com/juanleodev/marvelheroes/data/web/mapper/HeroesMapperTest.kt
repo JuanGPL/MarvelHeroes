@@ -8,7 +8,10 @@ class HeroesMapperTest {
 
     @Test
     fun mapToHeroListTestResultIsEmptyList() {
-        val result = HeroesMapper.mapToHeroList(CharacterDataWrapper(), HeroesMapper.ImageQuality.PORTRAIT_MEDIUM)
+        val result = HeroesMapper.mapToHeroList(CharacterDataWrapper(),
+            HeroesMapper.ImageQuality.PORTRAIT_MEDIUM,
+            HeroesMapper.ImageQuality.PORTRAIT_MEDIUM
+        )
         assertTrue(result.isEmpty())
     }
 
@@ -16,7 +19,10 @@ class HeroesMapperTest {
     fun mapToHeroListTestMapSuccess() {
         val characterDataWrapper = createCharacterDataWrapperWithNCharacters(2)
 
-        val result = HeroesMapper.mapToHeroList(characterDataWrapper, HeroesMapper.ImageQuality.PORTRAIT_MEDIUM)
+        val result = HeroesMapper.mapToHeroList(characterDataWrapper,
+            HeroesMapper.ImageQuality.PORTRAIT_MEDIUM,
+            HeroesMapper.ImageQuality.PORTRAIT_MEDIUM
+        )
 
         assertTrue(result.isNotEmpty())
         assertEquals(characterDataWrapper.data?.results?.get(0)?.id, result[0].id)
