@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.juanleodev.marvelheroes.databinding.ActivityHeroesListBinding
 import com.juanleodev.marvelheroes.presentation.common.BaseActivity
+import com.juanleodev.marvelheroes.presentation.heroeslist.adapter.HeroesListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HeroesListActivity : BaseActivity() {

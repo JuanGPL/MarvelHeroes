@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.heroeslist.HeroesListActivity">
+    android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerHeroes"
+        android:id="@+id/recyclerSimpleItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_hero" />
+        tools:listitem="@layout/item_simple"/>
 
     <TextView
         android:id="@+id/tvNoResults"
@@ -20,8 +19,8 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerHeroes"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerHeroes"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerSimpleItems"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerSimpleItems"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

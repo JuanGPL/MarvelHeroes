@@ -1,4 +1,4 @@
-package com.juanleodev.marvelheroes.presentation.heroeslist
+package com.juanleodev.marvelheroes.presentation.heroeslist.adapter
 
 import android.app.Activity
 import android.content.Intent

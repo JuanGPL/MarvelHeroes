@@ -14,4 +14,8 @@
     <string name="error_not_found">Item not found</string>
     <string name="error_service_unavailable">Service temporarily unavailable, please try again later</string>
     <string name="error_unknown">An error occurred, please try again later</string>
+    <string name="comics">Comics</string>
+    <string name="description">Description</string>
+    <string name="stories">Stories</string>
+    <string name="series">Series</string>
 </resources>
