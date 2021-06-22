@@ -1,41 +1,47 @@
 package com.juanleodev.marvelheroes.presentation.herodetail.fragment
 
-import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.juanleodev.marvelheroes.R
-import com.juanleodev.marvelheroes.databinding.FragmentSimpleListBinding
+import com.juanleodev.marvelheroes.domain.error.ErrorEntity
+import com.juanleodev.marvelheroes.presentation.common.BaseViewModel
+import com.juanleodev.marvelheroes.presentation.common.LoadingDialog
+import com.juanleodev.marvelheroes.presentation.common.SnackbarHelper
 import com.juanleodev.marvelheroes.presentation.herodetail.adapter.SimpleListAdapter
 
-class SimpleListFragment(
-    private val textList: List<String>?
-) : Fragment(R.layout.fragment_simple_list) {
+open class SimpleListFragment : Fragment(R.layout.fragment_simple_list) {
 
-    private var binding: FragmentSimpleListBinding? = null
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSimpleListBinding.bind(view)
-
-        with(binding?.recyclerSimpleItems) {
-            this?.layoutManager = LinearLayoutManager(requireContext())
-            this?.adapter = SimpleListAdapter(textList ?: ArrayList())
+    private fun mapError(error: ErrorEntity): String {
+        return when (error) {
+            ErrorEntity.Network -> getString(R.string.error_network)
+            ErrorEntity.NotFound -> getString(R.string.error_not_found)
+            ErrorEntity.ServiceUnavailable -> getString(R.string.error_service_unavailable)
+            ErrorEntity.Unknown -> getString(R.string.error_unknown)
+            else -> error.message ?: getString(R.string.error_unknown)
         }
     }
 
-//    private fun setRecyclerViewScrollListener() {
-//        with(binding?.recyclerSimpleItems) {
-//            addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                    super.onScrolled(recyclerView, dx, dy)
-//                    if ((layoutManager as LinearLayoutManager).findLastVisibleItemPosition() == (adapter as SimpleListAdapter).itemCount - 1) {
-//                        viewModel.getHeroesList()
-//                        removeOnScrollListener(this)
-//                    }
-//                }
-//            })
-//        }
-//    }
+    protected fun initRecyclerView(recycler: RecyclerView?) {
+        recycler?.layoutManager = LinearLayoutManager(requireContext())
+        recycler?.adapter = SimpleListAdapter()
+    }
+
+    protected fun observeStatus(viewModel: BaseViewModel, parent: View) {
+        viewModel.getLoadingObservable().observe(this, {
+            LoadingDialog.show(requireContext(), it)
+        })
+
+        viewModel.getErrorObservable().observe(viewLifecycleOwner, {
+            SnackbarHelper.showSnackbar(
+                requireContext(),
+                parent,
+                mapError(it),
+                SnackbarHelper.Type.ERROR,
+                R.string.ok
+            )
+        })
+    }
 
 }

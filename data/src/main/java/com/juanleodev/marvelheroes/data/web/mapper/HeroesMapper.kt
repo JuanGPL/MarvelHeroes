@@ -1,6 +1,6 @@
 package com.juanleodev.marvelheroes.data.web.mapper
 
-import com.juanleodev.marvelheroes.data.web.model.*
+import com.juanleodev.marvelheroes.data.web.model.hero.*
 import com.juanleodev.marvelheroes.domain.model.Comic
 import com.juanleodev.marvelheroes.domain.model.Hero
 import com.juanleodev.marvelheroes.domain.model.Serie

@@ -1,6 +1,6 @@
 package com.juanleodev.marvelheroes.data.web.mapper
 
-import com.juanleodev.marvelheroes.data.web.model.*
+import com.juanleodev.marvelheroes.data.web.model.hero.*
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -8,7 +8,8 @@ class HeroesMapperTest {
 
     @Test
     fun mapToHeroListTestResultIsEmptyList() {
-        val result = HeroesMapper.mapToHeroList(CharacterDataWrapper(),
+        val result = HeroesMapper.mapToHeroList(
+            CharacterDataWrapper(),
             HeroesMapper.ImageQuality.PORTRAIT_MEDIUM,
             HeroesMapper.ImageQuality.PORTRAIT_MEDIUM
         )

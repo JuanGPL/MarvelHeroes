@@ -7,9 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.juanleodev.marvelheroes.R
 
-class SimpleListAdapter(
-    private val itemList: List<String>
-) : RecyclerView.Adapter<SimpleListAdapter.ViewHolder>() {
+class SimpleListAdapter() : RecyclerView.Adapter<SimpleListAdapter.ViewHolder>() {
+
+    private var itemList: List<String> = ArrayList()
+
+    fun setItems(items: List<String>) {
+        itemList = items
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

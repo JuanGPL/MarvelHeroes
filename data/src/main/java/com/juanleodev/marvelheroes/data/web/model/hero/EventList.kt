@@ -1,8 +1,8 @@
-package com.juanleodev.marvelheroes.data.web.model
+package com.juanleodev.marvelheroes.data.web.model.hero
 
 import com.google.gson.annotations.SerializedName
 
-data class SeriesList(
+data class EventList(
     @SerializedName("available")
     val available: Int? = null,
     @SerializedName("returned")
@@ -10,5 +10,5 @@ data class SeriesList(
     @SerializedName("collectionURI")
     val collectionURI: String? = null,
     @SerializedName("items")
-    val items: List<SeriesSummary>? = null
+    val items: List<EventSummary>? = null
 )

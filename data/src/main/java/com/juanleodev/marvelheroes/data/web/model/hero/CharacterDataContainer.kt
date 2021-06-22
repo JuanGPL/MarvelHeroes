@@ -1,4 +1,4 @@
-package com.juanleodev.marvelheroes.data.web.model
+package com.juanleodev.marvelheroes.data.web.model.hero
 
 import com.google.gson.annotations.SerializedName
 

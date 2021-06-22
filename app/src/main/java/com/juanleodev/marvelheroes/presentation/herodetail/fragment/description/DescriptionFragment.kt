@@ -1,4 +1,4 @@
-package com.juanleodev.marvelheroes.presentation.herodetail.fragment
+package com.juanleodev.marvelheroes.presentation.herodetail.fragment.description
 
 import android.os.Bundle
 import android.view.View
