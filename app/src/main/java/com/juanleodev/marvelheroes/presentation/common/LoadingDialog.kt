@@ -11,11 +11,12 @@ import com.juanleodev.marvelheroes.R
 class LoadingDialog {
 
     companion object {
+        private var isLoading = false
         private var instance: AlertDialog? = null
         private var animation: LottieAnimationView? = null
 
         fun show(context: Context, mustShow: Boolean) {
-            if (mustShow) {
+            if (mustShow && !isLoading) {
                 show(context)
             } else {
                 hide()
@@ -23,6 +24,7 @@ class LoadingDialog {
         }
 
         private fun show(context: Context) {
+            isLoading = true
             val builder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.LoadingDialog)
             val customLayout: View = LayoutInflater.from(context)
                 .inflate(R.layout.loading_dialog, null)
@@ -39,6 +41,7 @@ class LoadingDialog {
         }
 
         private fun hide() {
+            isLoading = false
             animation?.cancelAnimation()
             instance?.dismiss()
         }
