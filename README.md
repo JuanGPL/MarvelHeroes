@@ -2,9 +2,12 @@
 
 La presente aplicación Android pretende satisfacer los requisitos indicados en el documento de la prueba técnica.
 
+## Fichero de instalación
+* [MarvelHeroes.apk](https://github.com/JuanGPL/MarvelHeroes/releases/tag/1.0.0)
+
 ## Nota importante
 Por seguridad se ha omitido el fichero `data/marvelApi.properties` que contiene las claves para poder hacer las peticiones a la API de Marvel.
-Para compilar el proyecto es necesario añadirlo con las claves.
+Para compilar el proyecto es necesario añadirlo con claves válidas.
 El fichero tiene la siguiente estructura:
 ```bash
 publicKey="yourPublicKeyHere"
