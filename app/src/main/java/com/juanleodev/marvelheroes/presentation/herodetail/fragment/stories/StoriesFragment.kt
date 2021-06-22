@@ -2,6 +2,8 @@ package com.juanleodev.marvelheroes.presentation.herodetail.fragment.stories
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.juanleodev.marvelheroes.databinding.FragmentStoriesBinding
 import com.juanleodev.marvelheroes.presentation.herodetail.adapter.SimpleListAdapter
 import com.juanleodev.marvelheroes.presentation.herodetail.fragment.SimpleListFragment
@@ -27,8 +29,24 @@ class StoriesFragment(private val heroId: Int?) : SimpleListFragment() {
         super.observeStatus(viewModel, binding?.root as View)
 
         viewModel.getStoryListObservable().observe(viewLifecycleOwner, {
+            toogleNoResults(binding?.tvNoResults, it)
             (binding?.recyclerSimpleItems?.adapter as SimpleListAdapter).setItems(it)
+            setRecyclerViewScrollListener()
         })
+    }
+
+    private fun setRecyclerViewScrollListener() {
+        with(binding?.recyclerSimpleItems) {
+            this?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if ((layoutManager as LinearLayoutManager).findLastVisibleItemPosition() == (adapter as SimpleListAdapter).itemCount - 1) {
+                        viewModel.getStoryList(heroId ?: -1)
+                        removeOnScrollListener(this)
+                    }
+                }
+            })
+        }
     }
 
 }

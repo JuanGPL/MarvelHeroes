@@ -1,6 +1,7 @@
 package com.juanleodev.marvelheroes.presentation.herodetail.fragment
 
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +43,14 @@ open class SimpleListFragment : Fragment(R.layout.fragment_simple_list) {
                 R.string.ok
             )
         })
+    }
+
+    protected fun toogleNoResults(tvNoResults: TextView?, result: List<String>) {
+        tvNoResults?.visibility = if (result.isEmpty()) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
 }
